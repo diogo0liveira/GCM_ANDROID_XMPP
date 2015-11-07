@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements ResultResponse
     }
 
     @Override
-    @SuppressLint("SetTextI18n")
     public void success(JsonRequest jsonRequest, JSONObject jsonObject)
     {
         try
