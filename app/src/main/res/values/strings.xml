@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GCM XMPP</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_result">RESULT</string>
+    <string name="title_activity_sigle">SINGLE</string>
+    <string name="title_activity_push">PushActivity</string>
+</resources>
