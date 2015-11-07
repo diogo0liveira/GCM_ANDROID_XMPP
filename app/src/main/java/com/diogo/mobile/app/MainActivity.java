@@ -1,5 +1,6 @@
 package com.diogo.mobile.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements ResultResponse
     }
 
     @Override
+    @SuppressLint("SetTextI18n")
     public void success(JsonRequest jsonRequest, JSONObject jsonObject)
     {
         try
