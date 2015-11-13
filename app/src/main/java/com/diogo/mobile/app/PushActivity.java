@@ -2,15 +2,14 @@ package com.diogo.mobile.app;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
-import com.diogo.mobile.app.util.Extras;
+import com.diogo.mobile.app.gcm.PushGoogleCloudMessaging;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import java.io.IOException;
 
 public class PushActivity extends AppCompatActivity
 {
@@ -48,24 +47,21 @@ public class PushActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
+        final EditText editText = (EditText)findViewById(R.id.acti_push_editText_mensagem);
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.acti_push_fab);
+
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Bundle bundle = new Bundle();
-                bundle.putString("ACTION", "UPSTREAM_MESSAGE");
-                bundle.putString("EXTRA_KEY_MESSAGE", "DIOGO ARAUJO OLIVEIRA");
+                if(((editText.getText() != null) && TextUtils.isEmpty(editText.getText())))
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("action", "upstream_message");
+                    bundle.putString("data", editText.getText().toString());
 
-                try
-                {
-                    googleCloudMessaging.send(Extras.SENDER_ID + "@gcm.googleapis.com", "10000", bundle);
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
+                    PushGoogleCloudMessaging.push(getBaseContext(), bundle);
                 }
             }
         });

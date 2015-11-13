@@ -10,65 +10,39 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/acti_main_textView_code"
+        android:id="@+id/acti_main_textView_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="@android:color/primary_text_dark"
         android:textStyle="bold"
-        android:text="CODE:"/>
+        android:text="ID:"/>
 
     <TextView
-        android:id="@+id/acti_main_textView_method"
+        android:id="@+id/acti_main_textView_registration_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/acti_main_textView_code"
+        android:layout_below="@id/acti_main_textView_id"
         android:textColor="@android:color/primary_text_dark"
         android:textStyle="bold"
-        android:text="METHOD:"/>
+        android:text="REG ID:"/>
 
     <TextView
-        android:id="@+id/acti_main_textView_json"
+        android:id="@+id/acti_main_textView_registration_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/acti_main_textView_method"
+        android:layout_below="@id/acti_main_textView_registration_id"
         android:textColor="@android:color/primary_text_dark"
         android:textStyle="bold"
-        android:text="JSON:"/>
+        android:text="RED DATE:"/>
 
     <ImageView
         android:id="@+id/acti_main_imageView_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@mipmap/ic_cloud_white_36dp"/>
-
-    <TextView
-        android:id="@+id/acti_main_textView_cliente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:paddingTop="20dp"
-        android:layout_below="@id/acti_main_imageView_icon"
-        android:textColor="@android:color/primary_text_dark"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/acti_main_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_below="@id/acti_main_textView_cliente"
-        android:textColor="@android:color/primary_text_dark"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/acti_main_textView_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/acti_main_textView_id"
-        android:textColor="@android:color/primary_text_dark"
-        android:textStyle="bold"/>
+        android:src="@mipmap/ic_cloud_white_36dp"
+        tools:ignore="ContentDescription"/>
 </RelativeLayout>

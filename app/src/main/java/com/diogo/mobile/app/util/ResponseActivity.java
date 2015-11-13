@@ -20,4 +20,9 @@ public class ResponseActivity
     {
         ResponseActivity.activity = activity;
     }
+
+    public static void removeActivity()
+    {
+        ResponseActivity.activity = null;
+    }
 }

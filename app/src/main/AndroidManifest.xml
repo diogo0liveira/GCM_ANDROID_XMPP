@@ -92,7 +92,7 @@
         <activity
             android:name=".PushActivity"
             android:label="@string/title_activity_push"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBarLight" >
         </activity>
     </application>
 

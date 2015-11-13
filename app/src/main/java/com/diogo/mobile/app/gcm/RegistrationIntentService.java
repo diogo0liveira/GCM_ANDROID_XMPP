@@ -3,32 +3,31 @@ package com.diogo.mobile.app.gcm;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.diogo.mobile.app.model.Cliente;
-import com.diogo.mobile.app.network.JsonRequest;
-import com.diogo.mobile.app.network.NetworkConnection;
-import com.diogo.mobile.app.network.ResultResponse;
-import com.diogo.mobile.app.network.wrapper.WrapCliente;
+import com.diogo.mobile.app.model.Device;
 import com.diogo.mobile.app.util.Extras;
-import com.diogo.mobile.app.util.ResponseActivity;
+import com.diogo.mobile.app.util.JsonKey;
+import com.diogo.mobile.app.util.JsonValue;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Created on 08/10/2015 15:06.
  *
  * @author Diogo Oliveira.
  */
-public class RegistrationIntentService extends IntentService implements ResultResponse
+public class RegistrationIntentService extends IntentService
 {
     private static final String LOG = "LOG";
 
@@ -48,13 +47,13 @@ public class RegistrationIntentService extends IntentService implements ResultRe
 
             try
             {
-                if(!bolStatus)
-                {
+                //if(!bolStatus)
+                //{
                     String strToken = instanceID.getToken(Extras.SENDER_ID, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-                    preferences.edit().putBoolean(Extras.PREFERENCES_STATUS, ((strToken != null) && (TextUtils.isEmpty(strToken.trim())))).apply();
+                    preferences.edit().putBoolean(Extras.PREFERENCES_STATUS, ((strToken != null) && (!TextUtils.isEmpty(strToken.trim())))).apply();
                     sendRegistrationToServer(strToken);
                     Log.e(Extras.TAG, strToken);
-                }
+                //}
             }
             catch(IOException e)
             {
@@ -65,18 +64,25 @@ public class RegistrationIntentService extends IntentService implements ResultRe
 
     private void sendRegistrationToServer(String token)
     {
-        NetworkConnection.getInstance(this).execute(new WrapCliente(Request.Method.POST, new Cliente(token)), this);
-    }
+        try
+        {
+            Bundle bundle = new Bundle();
+            JSONObject jsonObject = new JSONObject(new Gson().toJson(new Device(token)));
+            Iterator<String> iterator = jsonObject.keys();
 
-    @Override
-    public void success(JsonRequest jsonRequest, JSONObject jsonObject)
-    {
-        ((ResultResponse)ResponseActivity.getActivity()).success(jsonRequest, jsonObject);
-    }
+            while(iterator.hasNext())
+            {
+                String jsonKey = iterator.next();
+                bundle.putString(jsonKey, jsonObject.getString(jsonKey));
+            }
 
-    @Override
-    public void error(VolleyError volleyError)
-    {
-        ((ResultResponse)ResponseActivity.getActivity()).error(volleyError);
+            bundle.putString(JsonKey.ACTION, JsonValue.REGISTER_USER);
+
+            PushGoogleCloudMessaging.push(this, bundle);
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

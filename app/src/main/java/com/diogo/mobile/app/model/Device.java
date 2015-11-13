@@ -8,13 +8,17 @@ import java.sql.Date;
  *
  * @author Diogo Oliveira.
  */
-public class Cliente
+public class Device
 {
+    public static final String ID = "id";
+    public static final String REGISTRATION_ID = "registationId";
+    public static final String REGISTRATION_DATE = "registationDate";
+
     private int id;
     private String registrationId;
-    private BigInteger registrationDate;
+    private BigInteger registrationDate = BigInteger.ZERO;
 
-    public Cliente(String registrationId)
+    public Device(String registrationId)
     {
         this.registrationId = registrationId;
     }
