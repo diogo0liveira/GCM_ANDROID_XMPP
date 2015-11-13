@@ -21,6 +21,8 @@ import com.diogo.mobile.app.util.ResponseActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import java.text.DateFormat;
+
 public class MainActivity extends AppCompatActivity implements OnReceiverActivity
 {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -114,15 +116,23 @@ public class MainActivity extends AppCompatActivity implements OnReceiverActivit
     }
 
     @Override
-    public void onReceiver(Bundle bundle)
+    public void onReceiver(final Bundle bundle)
     {
         switch(bundle.getString(JsonKey.ACTION, null))
         {
             case JsonValue.REGISTER_USER:
             {
-                textViewId.setText(bundle.getInt(Device.ID));
-                textViewRegistrationId.setText(bundle.getString(Device.REGISTRATION_ID));
-                textViewRegistrationDate.setText(bundle.getString(Device.REGISTRATION_DATE));
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        textViewId.setText(String.format("ID: %s", bundle.getString(Device.ID)));
+                        textViewRegistrationId.setText(String.format("REGISTRATION ID: %s", bundle.getString(Device.REGISTRATION_ID)));
+                        textViewRegistrationDate.setText(String.format("REGISTRATION DATE: %s",
+                                DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.DEFAULT).format(Long.valueOf(bundle.getString(Device.REGISTRATION_DATE)))));
+                    }
+                });
             }
         }
     }

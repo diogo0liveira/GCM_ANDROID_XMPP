@@ -11,8 +11,8 @@ import java.sql.Date;
 public class Device
 {
     public static final String ID = "id";
-    public static final String REGISTRATION_ID = "registationId";
-    public static final String REGISTRATION_DATE = "registationDate";
+    public static final String REGISTRATION_ID = "registrationId";
+    public static final String REGISTRATION_DATE = "registrationDate";
 
     private int id;
     private String registrationId;
